@@ -1,0 +1,65 @@
+canvas {
+    border:1px solid red;
+}
+
+.beacon{
+	width: 450px;
+	height: 100px;
+	margin-top: 10px;
+	border: 1px solid blue;
+}
+
+.beaconName{
+	width: 120px;
+	float: left;
+	height: 95px;
+	/*border: 2px solid blue;*/
+	line-height: 95px;
+}
+
+.beaconCode{
+	margin-left: 130px;
+	width: 270px;
+	/*border: 1px solid #762823;*/
+	height: 95px;
+	}
+
+	.send{
+		width: 270px;
+		height: 42px;
+		line-height: 42px;
+	}
+	.receive{
+		width: 270px;
+		height: 42px;
+		line-height: 42px;
+	}
+
+#location{
+	/*width: 420px;*/
+	margin:10px auto;
+}
+
+#wavefile{
+	width: 100px;
+}
+
+#waveHeader{
+	/*width: 400px;*/
+	margin:10px 10px;
+}
+
+#left{
+	width: 420px;
+	float: left;
+}
+
+#right{
+	margin-left: 450px;
+	margin-top: -50px;
+}
+
+#btnPlay{
+	margin:0 auto;
+	width: 80px;
+}
