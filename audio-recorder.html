@@ -91,8 +91,8 @@
 
         <div id="location">
             <div id="waveHeader">
-                <form action="" method="post">
-                    WAVE文件 <input type="file" id="wavefile" name="wave">
+                <form action="http://172.18.216.133:8080" method="post" enctype="multipart/form-data">
+                    WAVE文件 <input type="file" id="wavefile" name="wavFile">
                 
                     <input type="submit" name="提交">
                 </form>
@@ -104,17 +104,17 @@
                 <canvas id="canvas"></canvas>
             </div>
             <div id="right">
-                <button  id="btnPlay" onclick="Play()">Play</button>
+                <button  id="btnPlay">Play</button>
                 <div class="beacon">
                     <div class="beaconName">
-                        信标1(x, y, z)
+                        信标1(0, 0, 2)
                     </div>
                     <div class="beaconCode">
                         <div class="send">
-                            发送码【1 0 0】 发送时刻：<span>0</span>
+                            发送码【0001】 发送时刻：<span>0</span>
                         </div>
                         <div class="receive">
-                            接收码【1 0 0】 接收时刻: 
+                            接收码【<span id="code1"></span>】 接收时刻: 
                             <span id="t1">t1</span>
                         </div>
                     </div>
@@ -122,29 +122,29 @@
 
                 <div class="beacon">
                     <div class="beaconName">
-                        信标2(x, y, z)
+                        信标2(2, 0, 2)
                     </div>
                     <div class="beaconCode">
                         <div class="send">
-                            发送码【1 0 1】 发送时刻：<span >0</span>
+                            发送码【0010】 发送时刻：<span >0</span>
                         </div>
                         <div class="receive">
-                            接收码【1 0 1】 接收时刻: <span id="t2">t2</span>
+                            接收码【<span id="code2"></span>】 接收时刻: <span id="t2">t2</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="beacon">
                     <div class="beaconName">
-                        信标3(x, y, z)
+                        信标3(0, 2, 2)
                     </div>
 
                     <div class="beaconCode">
                         <div class="send">
-                            发送码【1 1 0】 发送时刻：<span>0</span>
+                            发送码【0011】 发送时刻：<span>0</span>
                         </div>
                         <div class="receive">
-                            接收码【1 1 0】 接收时刻: <span id="t3">t3</span>
+                            接收码【<span id="code3"></span>】 接收时刻: <span id="t3">t3</span>
                         </div>
                     </div>
                 </div>
@@ -282,6 +282,9 @@
             window.onbeforeunload = function() {
                 document.querySelector('#start-recording').disabled = false;
             };
+
+            
+        
         </script>
         <script type="text/javascript" src="ball.js"> </script>
         <script type="text/javascript" src="JuncUtil.js"> </script>

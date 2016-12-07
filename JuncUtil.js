@@ -54,8 +54,8 @@ JuncUtil.getPosition = function(t1, t2, t3){
 	    d2 = this.getDistance(t2),
 	    d3 = this.getDistance(t3);
 
-	point.x = (d1*d1 - d2*d2 + 4)/4*100.toFixed(2);
-	point.y = (d1*d1 - d3*d3 + 4)/4*100.toFixed(2);
+	point.x = ((d1*d1 - d2*d2 + 4)/4*100).toFixed(2);
+	point.y = ((d1*d1 - d3*d3 + 4)/4*100).toFixed(2);
 
 	return point;
 }
@@ -74,4 +74,4 @@ JuncUtil.getNewTimeData = function(arr1, arr2, arr3){
 }
 
 
-console.log(JuncUtil.getPosition(7, 6, 7));
+console.log(JuncUtil.getPosition(6.27, 6.8, 8.27));

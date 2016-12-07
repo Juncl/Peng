@@ -19,18 +19,18 @@ canvas {
 
 .beaconCode{
 	margin-left: 130px;
-	width: 270px;
+	width: 300px;
 	/*border: 1px solid #762823;*/
 	height: 95px;
 	}
 
 	.send{
-		width: 270px;
+		width: 300px;
 		height: 42px;
 		line-height: 42px;
 	}
 	.receive{
-		width: 270px;
+		width: 300px;
 		height: 42px;
 		line-height: 42px;
 	}
@@ -62,4 +62,8 @@ canvas {
 #btnPlay{
 	margin:0 auto;
 	width: 80px;
+}
+
+article{
+	height: 850px;
 }

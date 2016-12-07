@@ -57,12 +57,13 @@ function draw(options) {
             textPosY = options.y - 15;
             textPosX = options.x - 35;
         }else {
-            textPosY = options.y + 25;
+            textPosY = parseFloat(options.y) + 25;
             textPosX = options.x - 35;
         }
         
     }
-    ctx.fillText("("+options.x.toFixed(1)+" "+options.y.toFixed(1)+")", textPosX, textPosY);
+    ctx.fillText("("+parseFloat(options.x)+" "+options.y+")", textPosX, (textPosY));
+    console.log(textPosX + " " + textPosY);
     ctx.closePath();
     ctx.fillStyle = 'rgba(7,120,249,1)';
     ctx.fill();
@@ -80,33 +81,46 @@ var end = {
     r: 10
 };
 
+var timeArr = [];
+var pos = {};
+
 function render() {
-    if (start.x < end.x && start.y < end.y) {
-        draw(start);
-        start.x = Math.random()*400;
-        start.y = Math.random()*400;
-        // setTimeout(arguments.callee, 500);
+    // if (start.x < end.x && start.y < end.y) {
+    //     draw(start);
+    //     start.x = Math.random()*400;
+    //     start.y = Math.random()*400;
+    //     setTimeout(arguments.callee, 500);
+    // }
+    
+    if(pos){
+        start.x = pos.x;
+        start.y = pos.y;
+    }else{
+        start.x = 200;
+        start.y = 200;
     }
+    draw(start);
+    setTimeout(arguments.callee, 500);
 } 
 
-function Play(){
-    getJSON('./data.json', function(err, data) {
-        if (err != null) {
-            console.log('Something went wrong: ' + err);
-        } else {
-            console.log('Your Json result is:  ' + data.result);
-            result.innerText = data.result;
-        }
-    });
+// function Play(){
+//     getJSON('./data.json', function(err, data) {
+//         if (err != null) {
+//             console.log('Something went wrong: ' + err);
+//         } else {
+//             console.log('Your Json result is:  ' + data.result);
+//             result.innerText = data.result;
+//         }
+//     });
 
-    var n1 = randomNum()[0];
-    var n2 = randomNum()[1];
-    var n3 = randomNum()[2];
+//     var n1 = randomNum()[0];
+//     var n2 = randomNum()[1];
+//     var n3 = randomNum()[2];
 
-    t1.innerHTML = n1+"ms";
-    t2.innerHTML = n1+"ms";
-    t3.innerHTML = n1+"ms";
-}
+//     t1.innerHTML = n1+"ms";
+//     t2.innerHTML = n1+"ms";
+//     t3.innerHTML = n1+"ms";
+// }
 
 render();
 
@@ -138,6 +152,92 @@ var getJSON = function(url, callback) {
     };
     xhr.send();
 };
+
+document.getElementById("btnPlay").onclick = function loadJSON(){
+    // var data_file = "http://www.tutorialspoint.com/json/data.json";
+    console.log('btn play');
+    var data_file = "http://172.18.216.133:8080/location"
+            
+    var http_request = new XMLHttpRequest();
+    try{
+        // Opera 8.0+, Firefox, Chrome, Safari
+        http_request = new XMLHttpRequest();
+    }catch (e){
+        // Internet Explorer Browsers
+        try{
+            http_request = new ActiveXObject("Msxml2.XMLHTTP");
+                    
+        }catch (e) {
+                
+            try{
+                http_request = new ActiveXObject("Microsoft.XMLHTTP");
+            }catch (e){
+                // Something went wrong
+                alert("Your browser broke!");
+                return false;
+            }
+                    
+        }
+    }
+            
+    http_request.onreadystatechange = function(){
+            
+        if (http_request.readyState == 4  ){
+            // Javascript function JSON.parse to parse JSON data
+            var jsonObj = JSON.parse(http_request.responseText);
+
+            console.log(jsonObj);
+            console.log(jsonObj[0]);
+
+
+
+            var t1 = parseFloat(jsonObj[0].synyTime.toFixed(2))+4,
+                t2 = jsonObj[1].synyTime.toFixed(2),
+                t3 = jsonObj[2].synyTime.toFixed(2)-11;
+
+            timeArr.push(t1);
+            timeArr.push(t2);
+            timeArr.push(t3);
+
+            pos = JuncUtil.getPosition(t1, t2, t3);
+            console.log("x: "+pos.x);
+            console.log("y: "+pos.y);
+
+            var code1 = jsonObj[0].location.join(''),
+                code2 = jsonObj[1].location.join(''),
+                code3 = jsonObj[2].location.join('');
+
+
+            document.getElementById("t1").innerHTML = t1+"ms";
+            document.getElementById("t2").innerHTML = t2+"ms";
+            document.getElementById("t3").innerHTML = t3+"ms";
+
+            document.getElementById("code1").innerHTML = code1;
+            document.getElementById("code2").innerHTML = code2;
+            document.getElementById("code3").innerHTML = code3;
+        }
+    }
+
+            
+            
+    http_request.open("GET", data_file, true);
+    http_request.send();
+}
+
+
+function getElem(id){
+    return document.getElementById(id);
+}
+
+function list() {
+    return Array.prototype.slice.call(arguments);
+}
+
+// getElem("btnPlay").onclick = loadJSON();
+
+
+
+// setInterval(loadJSON, 500);
 
 
 
